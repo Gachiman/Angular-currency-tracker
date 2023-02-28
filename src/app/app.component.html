@@ -1,0 +1,13 @@
+<div>
+  <div>
+    <!--Header-->
+    <currency-header [availableCurrenciesSet]="availableCurrenciesSet"
+      (currencyAdded)="addCurrenciesSet($event)"></currency-header>
+  </div>
+  <div>
+    <currencies-rate-list [currenciesSet]="currenciesSet"
+      (currencyDeleted)="delCurrenciesSet($event)"></currencies-rate-list>
+  </div>
+</div>
+
+<button (click)="refreshCurrencies()">Refresh Currencies</button>
