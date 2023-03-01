@@ -5,7 +5,7 @@ import { Currency } from '../currency';
 @Component({
   selector: 'currencies-rate-list',
   templateUrl: './currencies-rate-list.component.html',
-  styleUrls: ['./currencies-rate-list.component.less']
+  styleUrls: ['./currencies-rate-list.component.css']
 })
 export class CurrenciesRateListComponent {
   @Output()

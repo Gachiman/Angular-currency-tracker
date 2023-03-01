@@ -1,8 +1,15 @@
-export class Currency {
+export interface ICurrency{
   name: string;
-  value: number = 0;
-  diff: number = 0;
-  diffIcon: string = ' ';
+  value?: number;
+  diff?: number;
+  diffIcon?: string;
+}
+
+export class Currency implements ICurrency{
+  name = '';
+  value = 0;
+  diff = 0;
+  diffIcon = '';
 
   constructor(name: string) {
     this.name = name;

@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { takeUntil } from 'rxjs';
 import { Currency } from './currency';
 import { CurrencyHttpService } from './currency-http.service';
+import { RxUnsubscribe } from './rx-unsubscribe';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less'],
+  styleUrls: ['./app.component.css'],
   providers: [CurrencyHttpService]
 })
-export class AppComponent {
+export class AppComponent extends RxUnsubscribe {
 
   currenciesSet: Currency[] = [
     new Currency('USD'),
@@ -24,20 +25,19 @@ export class AppComponent {
   ];
   
   constructor( private matIconRegistry: MatIconRegistry,
-               private domSanitaizer: DomSanitizer,
                private curHttpService: CurrencyHttpService) {
-    this.matIconRegistry.addSvgIcon(
-      `icon_label`,
-      this.domSanitaizer.bypassSecurityTrustResourceUrl('../assets/plus-svgrepo-com.svg')
-    );
+    super();
+
+    // Uncomment code below to initialize and set interval
+    // this.initialInterval();
   }
 
-  /*ngOnInit() {
-    this.curHttpService.updateCurData(this.currenciesSet, this.availableCurrenciesSet);
+  initialInterval(): void {
+    this.refreshCurrencies();
     setInterval(() => {
-      this.curHttpService.updateCurData(this.currenciesSet, this.availableCurrenciesSet);
-    }, 5000);  // I'm sure I should increase time interval from 5sec to ~20 - 30
-  }*/
+      this.refreshCurrencies();
+    }, 5000);
+  }
 
   addCurrenciesSet(index: number): void {
     this.currenciesSet.push(this.availableCurrenciesSet.splice(index, 1)[0]);
@@ -48,7 +48,22 @@ export class AppComponent {
   }
 
   refreshCurrencies() {
-    this.curHttpService.updateCurData(this.currenciesSet, this.availableCurrenciesSet);
+    this.curHttpService.getApiCurData().pipe(takeUntil(this.destroy$)).subscribe({next: (data) => {
+      for (let item of this.currenciesSet) {
+        let oldValue: number = item.value;
+        item.value = +(1 / data[item.name]).toFixed(2);
+        item.diff = oldValue ? item.value - oldValue : 0;
+        item.diff = +item.diff.toFixed(2);
+        item.diffIcon = (item.diff > 0) ? '▲' : (item.diff < 0) ? '▼' : ' ';
+      }
+      for (let item of this.availableCurrenciesSet) {
+        let oldValue: number = item.value;
+        item.value = +(1 / data[item.name]).toFixed(2);
+        item.diff = oldValue ? item.value - oldValue : 0;
+        item.diff = +item.diff.toFixed(2);
+        item.diffIcon = (item.diff > 0) ? '▲' : (item.diff < 0) ? '▼' : ' ';
+      }
+    }});
   }
 }
 
