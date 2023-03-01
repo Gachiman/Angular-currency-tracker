@@ -1,12 +1,14 @@
 .currencies-rate-list {
+  margin-top: 16px;
   width: 130%;
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .curConteiner {
   display: flex;
-  margin-top: 15px;
+  
 }
 
 .curConteiner > span {
