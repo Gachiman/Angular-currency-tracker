@@ -1,7 +1,12 @@
 <div class="currencies-rate-list">
-  <div *ngFor="let item of currenciesSet; index as i" style="margin: 30px;">
-    <span>{{item.name}}</span>
-    <span style="border:2px solid; padding: 10px;">{{item.value}}&nbsp;&nbsp;{{item.diffIcon}}&nbsp;&nbsp;{{item.diff}}</span>
-    <button *ngIf="i > 2" (click)="deleteCurrency(i)">Delete</button>
+  <div class="curConteiner" *ngFor="let item of currenciesSet; index as i">
+    <span class="curName">{{item.name}}</span>
+    <span class="curData">{{item.value}}
+      &nbsp;&nbsp;&nbsp;{{item.diffIcon}}&nbsp;&nbsp;&nbsp;
+      {{item.diff}}</span>
+    <button *ngIf="i > 2" (click)="deleteCurrency(i)" 
+      mat-icon-button aria-label="Button for deleting currency from the list">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
-</div><!--&nbsp;-->
+</div>

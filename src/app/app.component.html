@@ -1,13 +1,12 @@
-<div>
+<div class="mainClass">
   <div>
-    <!--Header-->
     <currency-header [availableCurrenciesSet]="availableCurrenciesSet"
       (currencyAdded)="addCurrenciesSet($event)"></currency-header>
   </div>
+  <button style="width: 100%;" mat-raised-button color="basic" aria-label="Button for refreshing data"
+(click)="refreshCurrencies()">Refresh Currencies</button>
   <div>
     <currencies-rate-list [currenciesSet]="currenciesSet"
       (currencyDeleted)="delCurrenciesSet($event)"></currencies-rate-list>
   </div>
 </div>
-
-<button (click)="refreshCurrencies()">Refresh Currencies</button>

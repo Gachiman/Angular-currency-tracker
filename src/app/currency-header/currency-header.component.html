@@ -1,10 +1,9 @@
 <div class="currency-header">
-  <span style="
-    padding-right: 24px;
-">Currency RUB</span>
-  <div class="example-button-container">
-    <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" aria-label="Example icon button with a menu icon">
-      <mat-icon svgIcon='icon_label' [class]='"add_icon"'></mat-icon>
+  <h2>Currency RUB</h2>
+  <div>
+    <button mat-mini-fab color="basic" [matMenuTriggerFor]="menu"
+     aria-label="Button for adding currencies">
+      <mat-icon>add</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button *ngFor="let item of availableCurrenciesSet; index as i"
@@ -14,4 +13,4 @@
     </mat-menu>
   </div>
 </div>
-<p>{{ currentDateTime | date: 'dd.MM.yyyy, HH:mm:ss' }}</p>
+<p style="font-size:small;">{{ currentDateTime | date: 'dd.MM.yyyy, HH:mm:ss' }}</p>

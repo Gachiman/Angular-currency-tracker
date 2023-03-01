@@ -5,7 +5,7 @@ import { Currency } from '../currency';
 @Component({
   selector: 'currency-header',
   templateUrl: './currency-header.component.html',
-  styleUrls: ['./currency-header.component.less']
+  styleUrls: ['./currency-header.component.css']
 })
 export class CurrencyHeaderComponent {
   @Output()
